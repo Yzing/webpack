@@ -25,9 +25,12 @@ module.exports = ajv =>
 			function callback(data) {
 				let passes = true;
 				const isExclamationMarkPresent = data.includes("!");
+
+				// 匹配 windows 或者 unix 的绝对路径
 				const isCorrectAbsoluteOrRelativePath =
 					expected === /^(?:[A-Za-z]:\\|\/)/.test(data);
 
+				// ! 号为 loader 分隔符，不能用在绝对路径中
 				if (isExclamationMarkPresent) {
 					callback.errors = [
 						errorMessage(
